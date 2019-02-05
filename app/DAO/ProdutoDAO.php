@@ -82,10 +82,18 @@ class ProdutoDAO extends BaseDAO
             $res = $con->query($sql);
 
             foreach ($con->fetchAll($res) as $k => $v) {
-                $retorno['codigo'] = $v['codigo'];
-                $retorno['descricao'] = $v['descricao'];
-                $retorno['preco'] = $v['preco'];
+                if ($id != "") {
+                    $retorno['codigo'] = $v['codigo'];
+                    $retorno['descricao'] = $v['descricao'];
+                    $retorno['preco'] = $v['preco'];
+                } else {
+                    $produto = new Produto();
+                    $produto->setCodigo($v['codigo']);
+                    $produto->setDescricao($v['descricao']);
+                    $produto->setPreco($v['preco']);
 
+                    $retorno[] = $produto;
+                }
             }
 
         } catch (\Exception $e) {

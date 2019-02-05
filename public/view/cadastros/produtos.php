@@ -15,18 +15,27 @@ include_once dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . "app" . 
     <div class="container-fluid">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="font-size: small; font-family: Calibri">
             <h1> Cadastro de Produtos</h1>
-            <thead>
+            <!--thead>
             <tr>
                 <th> Código do Produto</th>
                 <th> Descrição</th>
                 <th> Preço (R$)</th>
             </tr>
-            </thead>
+            </thead-->
             <tbody>
             <tr>
-                <th>   <input type="text" id="codigo" placeholder="Digite o código do produto" maxlength="10" minlength="1" required></th>
-                <th>   <input type="text" id="descricao" placeholder="Digite uma descrição" required></th>
-                <th>R$ <input type="text" id="valor" placeholder="Digite o valor (exemplo: 53,15)" required></th>
+                <th>
+                    <label for="codigo"><h3> Código</h3></label>
+                    <input type="text" id="codigo" placeholder="Digite o código do produto" class="dinheiro form-control" style="display:inline-block" onkeyup="formataCodigo();"/>
+                </th>
+                <th>
+                    <label for="descricao"><h3> Descrição</h3></label>
+                    <input type="text" id="descricao" placeholder="Digite uma descrição" class="dinheiro form-control" style="display:inline-block"/>
+                </th>
+                <th>
+                    <label for="dinheiro"><h3> Valor, em R$</h3></label>
+                    <input type="text" id="valor" name="valor" class="valor form-control" style="display:inline-block" onkeyup="formatarMoeda();"/>
+                </th>
             </tr>
             </tbody>
         </table>
@@ -48,6 +57,45 @@ include_once dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . "app" . 
         $('#listagem_produtos').load('view/cadastros/listagem_produtos.php');
     });
 
+    function formataCodigo() {
+
+        var elemento = document.getElementById('codigo');
+
+        var valor = elemento.value;
+        valor = parseInt(valor.replace(/[\D]+/g,''));
+        if (isNaN(valor))
+            elemento.value = '';
+        else
+            elemento.value = valor;
+
+    }
+
+    function formatarMoeda(){
+        var elemento = document.getElementById('valor');
+
+        var valor = elemento.value;
+
+        valor = valor + '';
+        valor = parseInt(valor.replace(/[\D]+/g,''));
+        valor = valor + '';
+        valor = valor.replace(/([0-9]{2})$/g, ",$1");
+
+        if (valor.length > 6) {
+            valor = valor.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+        }
+
+        elemento.value = valor;
+
+    }
+
+/*
+    function validaPreco() {
+        var x = document.getElementById("valor").value;
+
+        if
+        document.getElementById("valor").innerHTML = x;
+    }
+*/
     function perguntaCampos() {
 
         bootbox.confirm({

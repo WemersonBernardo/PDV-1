@@ -18,6 +18,8 @@ class ProdutoDAO extends BaseDAO
         $cod = $params['codigo'];
         $descricao = $params['descricao'];
         $preco = $params['preco'];
+        $preco = str_replace(".", "", $preco);
+        $preco = str_replace(",", ".", $preco);
 
         try
         {

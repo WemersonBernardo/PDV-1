@@ -1,4 +1,4 @@
-PDV
+# PDV
 
 A aplicação PDV é um conjunto de módulos que permitem o cadastro e a venda de um produto hipotético.
 A codificação é baseada em DAO (Data Access Object) e utiliza o design patter Singleton, de modo a minimizar o acesso múltiplo e otimizar a aplicação.
